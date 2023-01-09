@@ -1,0 +1,17 @@
+<title>Index Page</title>
+
+{% if userList %}
+
+    <ul>
+    {% for user in userList %}
+        <li>
+            <a href="{% url 'accounts:ManageUser' user.id %}">
+                {{ user.firstName }} {{ user.lastName }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are no users</p>
+{% endif %}

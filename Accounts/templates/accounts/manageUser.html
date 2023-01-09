@@ -1,0 +1,26 @@
+<title>Manage User Details</title>
+<h1>This is the manage page for {{ user.firstName }} {{ user.lastName }}</h1>
+
+<form action="{% url 'accounts:updateUser' user.id%}" method="post">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>
+            <h1>Details for {{ user.firstName }} {{ user.lastName }}</h1>
+        </legend>
+
+        <label for="">Username </label>
+        <input type="text" name="username" id="username" value="{{ user.username }}"><br>
+
+        <label for="">First Name </label>
+        <input type="text" name="fname" id="fname" value="{{ user.firstName }}"><br>
+
+        <label for="">Last Name </label>
+        <input type="text" name="lname" id="lname" value="{{ user.lastName }}"><br>
+
+        <label for="">Date of Birth </label>
+        <input type="date" name="dob" id="dob" value="{{ user.dateOfBirth.year }}-{{ user.dateOfBirth.month }}-{{ user.dateOfBirth.day }}"><br>
+
+        <br><input type="submit" value="Update Details">
+    </fieldset>
+</form>
