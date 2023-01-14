@@ -1,0 +1,58 @@
+<title>Manage all Accounts</title>
+
+<h1>Manage All Accounts</h1>
+<h2>Select One to see the details and edit them</h2>
+
+<a href="{% url 'accounts:index' %}">
+    <h3>Return to Index</h3>
+</a>
+
+{% if message %}
+<div class="alert">{{ message }}</div>
+{% endif %}
+
+{% if userList %}
+
+    <h3><strong>All Users</strong></h3>
+
+    <ul>
+        {% for user in userList %}
+            <li>
+                <a href="{% url 'accounts:manageAccounts' user.id %}">
+                    {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are no users</p>
+{% endif %}
+
+{% if userForm %}
+<form action="{% url 'accounts:manageAccounts' user.id %}" method="post">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>
+            <h3>Manage details for {{ user }}'s Accounts</h3>
+        </legend>
+
+        {% for field in userForm %}
+            {% if field.name == "cardNumber" %}
+                <h4>Payment Details</h4>
+            {% endif %}
+
+            <div class="fieldContainer">
+                {{ field.label_tag }} {{ field }}
+                {% for errors in field.errors %}
+                    <div class="error">{{ errors }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <br><input type="submit" name="submit" value="Submit">
+        <input type="submit" name="delete" value="Delete">
+    </fieldset>
+</form>
+{% endif %}

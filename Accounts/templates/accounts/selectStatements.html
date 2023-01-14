@@ -1,0 +1,38 @@
+<title>Select Statement</title>
+
+<h1>Select the User or Club you wish to see the account statement for</h1>
+
+{% if userList %}
+
+    <h3><strong>All Users</strong></h3>
+
+    <ul>
+        {% for user in userList %}
+            <li>
+                <a href="{% url 'accounts:seeUserStatement' user.id %}">
+                    {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are no users</p>
+{% endif %}
+
+{% if clubList %}
+    <h3><strong>All Clubs</strong></h3>
+
+    <ul>
+        {% for club in clubList %}
+            <li>
+                <a href="{% url 'accounts:seeClubStatment' club.id %}">
+                    {{ club.clubName }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are no clubs</p>
+{% endif %}

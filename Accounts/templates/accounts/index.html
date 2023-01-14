@@ -1,17 +1,71 @@
 <title>Index Page</title>
 
+{% if message %}
+<div class="alert">{{ message }}</div>
+{% endif %}
+
 {% if userList %}
 
+    <h3><strong>All Users</strong></h3>
+
     <ul>
-    {% for user in userList %}
-        <li>
-            <a href="{% url 'accounts:ManageUser' user.id %}">
-                {{ user.firstName }} {{ user.lastName }}
-            </a>
-        </li>
-    {% endfor %}
+        <li class="create"><a href="{% url 'accounts:createUser' %}">Create new User</a></li>
+
+        {% for user in userList %}
+            <li>
+                <a href="{% url 'accounts:manageUser' user.id %}">
+                    {{ user.username }} ({{ user.firstName }} {{ user.lastName }})
+                </a>
+            </li>
+        {% endfor %}
     </ul>
 
 {% else %}
     <p>There are no users</p>
+{% endif %}
+
+{% if clubList %}
+    <h3><strong>All Clubs</strong></h3>
+
+    <ul>
+        <li class="create"><a href="{% url 'accounts:createClub'%}">Create new Club</a></li>
+
+        {% for club in clubList %}
+            <li>
+                <a href="{% url 'accounts:manageClub' club.id %}">
+                    {{ club.clubName }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>There are no clubs</p>
+{% endif %}
+
+{% if repList %}
+<h3><strong>All Representitives</strong></h3>
+
+<ul>
+    <li class="create"><a href="{% url 'accounts:createRep'%}">Create new Representitive</a></li>
+
+    {% for rep in repList %}
+        <li>
+            <a href="{% url 'accounts:manageRep' rep.id %}">
+                {{ rep.affiliatedClub.clubName }} Representitive ({{ rep.studentRepresentitive.firstName }} {{ rep.studentRepresentitive.lastName}})
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'accounts:manageAccounts' 0 %}">
+    <h3>See All Accounts</h3>
+</a>
+
+<a href="{% url 'accounts:selectStatement' %}">
+    <h3>Select Account Statement</h3>
+</a>
+
+{% else %}
+    <p>There are no representitives</p>
 {% endif %}

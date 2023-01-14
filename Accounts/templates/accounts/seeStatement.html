@@ -1,0 +1,20 @@
+<title>Account Statement for {{ name }}</title>
+
+<h1>Account Statemtent for {{ name }}</h1>
+
+<ul>
+    {% for entry in history %}
+        <li>
+            Date of purchase: {{ entry.date }} <br>
+            Quantity purchased: {{ entry.quantity }} <br>
+            Total Cost of purchase: {{ entry.totalCost }}
+        </li> <br>
+    {% endfor %}
+
+    <h4>Total Spending of the Month</h4>
+
+    <li>
+        Quantity: {{ total.bought }} <br>
+        Spending: {{ total.spent }}
+    </li>
+</ul>

@@ -1,0 +1,30 @@
+<title>Create new club</title>
+
+<form action="{% url 'accounts:createClub' %}"  method="post">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>
+            <h2>Create new Club</h2>
+        </legend>
+
+        {% for field in clubForm %}
+            {% if field.name == "streetNo" %}
+                <h4>Location Details</h4>
+            {% endif %}
+
+            {% if field.name == "landlineNo" %}
+                <h4>Contact Details</h4>
+            {% endif %}
+
+            <div class="fieldContainer">
+                {{ field.label_tag }} {{ field }}
+                {% for errors in field.errors %}
+                    <div class="error">{{ errors }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <br><input type="submit" name="submit" value="Submit">
+    </fieldset>
+</form>

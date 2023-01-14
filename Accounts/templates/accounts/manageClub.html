@@ -1,23 +1,21 @@
-<title>Manage User Details</title>
-<h1>This is the manage page for {{ user.firstName }} {{ user.lastName }}</h1>
+<title>Change Password</title>
+<h1>This is the manage page for the {{ club.clubName }} club</h1>
 
-<form action="{% url 'accounts:manageUser' user.id%}" method="post">
+<form action="{% url 'accounts:manageClub' club.id%}" method="post">
     {% csrf_token %}
 
     <fieldset>
         <legend>
-            <h2>Details for {{ user.firstName }} {{ user.lastName }}</h2>
+            <h2>Details for the {{ club.clubName }} club</h2>
         </legend>
 
-        <!-- {% if userForm.errors %}
-        {{ userForm.errors }}
-        {% endif %}
+        {% for field in clubForm %}
+            {% if field.name == "streetNo" %}
+                <h4>Location Details</h4>
+            {% endif %}
 
-        {{ userForm.as_p }} -->
-
-        {% for field in userForm %}
-            {% if field.name == "cardNumber" %}
-                <h4>Payment Details</h4>
+            {% if field.name == "landlineNo" %}
+                <h4>Contact Details</h4>
             {% endif %}
 
             <div class="fieldContainer">
